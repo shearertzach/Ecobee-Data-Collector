@@ -2,10 +2,14 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.10",
+    "@types/node-cron": "^3.0.11",
     "nodemon": "^3.1.0",
+    "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.9.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "name": "ecobee-typescript",
   "version": "1.0.0",
@@ -24,11 +28,9 @@
     "chokidar": "^3.6.0",
     "concat-map": "^0.0.1",
     "create-require": "^1.1.1",
-    "cron": "^3.1.7",
     "debug": "^4.3.4",
     "diff": "^4.0.2",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
     "fill-range": "^7.0.1",
     "glob-parent": "^5.1.2",
     "has-flag": "^3.0.0",
@@ -43,6 +45,7 @@
     "minimatch": "^3.1.2",
     "moment": "^2.30.1",
     "ms": "^2.1.2",
+    "node-cron": "^3.0.3",
     "nopt": "^1.0.10",
     "normalize-path": "^3.0.0",
     "picomatch": "^2.3.1",
@@ -60,11 +63,11 @@
     "yn": "^3.1.1"
   },
   "scripts": {
+    "build": "webpack-cli ./src/index.ts --config webpack.config.cjs",
     "dev": "tsx watch src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "type": "module"
+  "description": ""
 }

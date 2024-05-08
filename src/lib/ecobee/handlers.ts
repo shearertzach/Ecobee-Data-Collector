@@ -58,6 +58,8 @@ export const handleIntervalRevisionChange = async (accessToken: string) => {
 
   const runtimes = await getRuntimeReport(accessToken);
 
+  handlerLogger(runtimes.length)
+
   const lastReading = moment(
     json.thermostatList[0].extendedRuntime.lastReadingTimestamp
   ).subtract(5, "hours");
@@ -65,6 +67,7 @@ export const handleIntervalRevisionChange = async (accessToken: string) => {
   const runtimeInfo = json.thermostatList[0].extendedRuntime;
 
   for (let i = 2; i >= 0; i--) {
+    handlerLogger('Interval: ' + String(i))
     const timeInterval = [15, 10, 5];
 
     const formattedInfo: EcobeeFormattedRuntime = {
@@ -91,9 +94,9 @@ export const handleIntervalRevisionChange = async (accessToken: string) => {
     const outdoorStats = runtimes.find(
       (r: EcobeeFormattedRuntime) => r.TimeStamp == formattedInfo.TimeStamp
     );
-
+    handlerLogger("Inserting...")
     const statement = `INSERT INTO Thermostat_Data_History (${infoCols}, OutdoorTemp, OutdoorHumidity) VALUES (${infoValues}, ${outdoorStats.temp}, ${outdoorStats.humidity})`;
-
+    handlerLogger("Insert complete")
     await insert(statement);
   }
   return;

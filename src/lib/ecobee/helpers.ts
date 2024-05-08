@@ -1,7 +1,9 @@
 import moment from "moment";
+import { handlerLogger } from "../logger";
 
 // HELPERS
 export const getRuntimeReport = async (token: string) => {
+  handlerLogger("getting runtime report")
   const startDate = moment().subtract(1, "day").format("YYYY-MM-DD");
   // const startDate = '2024-04-24'
   const endDate = moment().add(1, "days").format("YYYY-MM-DD");

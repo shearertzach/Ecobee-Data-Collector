@@ -1,0 +1,13 @@
+version: '3.8'  # Docker Compose version
+
+services:
+  ecobee_data_collector:
+    build:
+      context: .  # The build context is the current directory
+      dockerfile: Dockerfile  # Name of your Dockerfile
+      platforms:
+        - linux/amd64
+        - linux/arm64
+    environment:
+      - TZ=America/Chicago  # Set the time zone
+    command: ["node", "./dist/bundle.js"]  # Default command

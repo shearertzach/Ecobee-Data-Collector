@@ -3,6 +3,8 @@ import { handleIntervalRevisionChange, handleThermostatRevisionChange } from "./
 import { revisionLogger } from "../logger";
 
 const checkRevision = async (accessToken: string ) => {
+  revisionLogger("Checking revisions...")
+
   const revisions = await select(
     "SELECT * FROM Thermostat_Revision_History ORDER BY ID DESC LIMIT 2"
   );
@@ -15,7 +17,6 @@ const checkRevision = async (accessToken: string ) => {
   if (accessToken != undefined) {
     if (latestRevisions.ThermostatRevision > comparedRevisions.ThermostatRevision) {
       await handleThermostatRevisionChange(accessToken);
-      revisionLogger('Detected Thermostat Change')
       revisionChanges++
     }
   
@@ -27,7 +28,6 @@ const checkRevision = async (accessToken: string ) => {
   
     if (latestRevisions.IntervalRevision > comparedRevisions.IntervalRevision) {
       await handleIntervalRevisionChange(accessToken);
-      revisionLogger('Detected Interval Change')
       revisionChanges++
     }
   }

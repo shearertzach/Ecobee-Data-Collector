@@ -5,6 +5,7 @@ import { authLogger } from "../logger";
 // For locally hosted applications, automatically refresh token
 
 export const refreshToken = async (accessToken: string) => {
+  authLogger("Refreshing Token...")
   // Query Database for time it was generated
   const tokens = await select(
     `SELECT * FROM Thermostat_Tokens WHERE AccessToken = "${accessToken}" ORDER BY ID DESC LIMIT 1;`
@@ -14,8 +15,10 @@ export const refreshToken = async (accessToken: string) => {
   if (tokens.length == 0) return;
 
   // Compare time and check if needs refresh
-  const lastTokenTime = moment(tokens[0].Timestamp).subtract(5, "hours").unix();
+  const lastTokenTime = moment(tokens[0].Timestamp).unix();
   const currentTime = moment().unix();
+
+
   const timeDifference = Math.floor(currentTime - lastTokenTime);
   const tokenExpired = timeDifference > 3600;
 
@@ -40,6 +43,8 @@ export const refreshToken = async (accessToken: string) => {
     );
     return json.access_token;
   }
+  
+  authLogger("No token refresh required")
 
   return accessToken;
 };
