@@ -15,7 +15,7 @@ dotenv.config();
 
 
 
-cron.schedule("*/5 * * * *", async () => {
+cron.schedule("*/1 * * * *", async () => {
   consoleLogger(
     "Cron Job Trigger at " + String(moment(moment.now()).toLocaleString())
   );

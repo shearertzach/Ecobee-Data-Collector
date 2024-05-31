@@ -18,7 +18,7 @@ export const insert = async (statement: string) => {
   } catch (e) {
     databaseLogger(String(e));
   } finally {
-    if (conn) conn.release();
+    if (conn) conn.end();
   }
 };
 
@@ -36,6 +36,6 @@ export const select = async (statement: string) => {
   } catch (e) {
     databaseLogger(String(e));
   } finally {
-    if (conn) conn.release();
+    if (conn) conn.end();
   }
 };
